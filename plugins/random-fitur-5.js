@@ -124,22 +124,6 @@ await conn.sendButton(m.chat, caption, wm, x.dest, [
             ], m)
 }
 
-if (command == 'toascii') {
-let q = m.quoted ? m.quoted : m
-  let mime = (q.msg || q).mimetype || ''
-  if (!mime) throw 'Fotonya Mana?'
-  if (!/image\/(jpe?g|png)/.test(mime)) throw `Tipe ${mime} tidak didukung!`
-    let img = await q.download?.()
-    let url = await uploadImage(img)
-
-let f = await fetch(`https://process.filestackapi.com/A7lMmfpoSTu3i5i7yBXeQz/ascii=colored:true/${url}`)
-let xc = await f.text()
-let caption = `*Jadikan File HTML*
-
-${xc}`
-m.reply(caption)
-}
-
 if (command == 'calc') {
 let id = m.chat
   conn.math = conn.math ? conn.math : {}
@@ -173,52 +157,15 @@ let id = m.chat
   }
   }
 
-if (command == 'dlytmp3') {
-  if (!text) throw 'Url Mana?'
-let f = await fetch(`https://api.webraku.xyz/api/ytmp3?url=${text}&apikey=Nathan`)
-let xc = await f.json()
-let r = xc.result
-let caption = `*Title:* ${r.title}
-*Size:* ${r.size}
-*View:* ${r.views}
-*Like:* ${r.likes}
-*Dislike:* ${r.dislike}
-*Channel:* ${r.channel}
-*Upload:* ${r.uploadDate}
-*Desc:* ${r.desc}`
-await conn.sendButton(m.chat, caption, wm, r.thumb, [
-                ['Get', `${usedPrefix}get ${r.result}`]
-            ], m)
-}
-
-if (command == 'dlytmp4') {
-  if (!text) throw 'Url Mana?'
-let f = await fetch(`https://api.webraku.xyz/api/ytmp4?url=${text}&apikey=Nathan`)
-let xc = await f.json()
-let r = xc.result
-let caption = `*Title:* ${r.title}
-*Size:* ${r.size}
-*Quality:* ${r.quality}
-*View:* ${r.views}
-*Like:* ${r.likes}
-*Dislike:* ${r.dislike}
-*Channel:* ${r.channel}
-*Upload:* ${r.uploadDate}
-*Desc:* ${r.desc}`
-await conn.sendButton(m.chat, caption, wm, r.thumb, [
-                ['Get', `${usedPrefix}get ${r.result}`]
-            ], m)
-}
-
 if (command == 'mcskin') {
-if (!args[0] && !one && !two) throw `Contoh:\n${usedPrefix + command} .mcskin stone |atas|bawah`
+if (!args[0] && !one && !two) throw `Contoh:\n${usedPrefix + command} stone |atas|bawah`
 let res = await mcskin(args[0], one, two)
 await conn.sendFile(m.chat, res, 'image.png', "Your Text: \n" + one + " " + two, m)
 }
 
 
 }
-handler.command = handler.help = ['cdnjs', 'readqr', 'scanqr', 'animechan', 'whatanime', 'isgd', 'resmush', 'toascii', 'calc', 'dlytmp3', 'dlytmp4', 'mcskin']
+handler.command = handler.help = ['cdnjs', 'readqr', 'scanqr', 'animq', 'whatanime', 'isgd', 'resmush', 'calc', 'mcskin']
 handler.tags = ['tools']
 export default handler
 

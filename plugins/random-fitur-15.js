@@ -3,8 +3,6 @@ import uploadFile from '../lib/uploadFile.js'
 import uploadImage from '../lib/uploadImage.js'
 import { sticker } from '../lib/sticker.js'
 import fs from 'fs'
-import jimp from 'jimp'
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
 
 let handler = async(m, { conn, groupMetadata, usedPrefix, text, args, command, isPrems, isOwner }) => {
 let frep = { contextInfo: { externalAdReply: {title: global.wm, body: global.author, sourceUrl: snh, thumbnail: fs.readFileSync('./thumbnail.jpg')}}}
@@ -182,27 +180,7 @@ await conn.sendButton(m.chat, caption, wm, v.respon, [
                 ['Picture', `${usedPrefix}get ${v.respon}`]
             ], m)
 }
-if (args[0] == 'asupan') {
-if (!one) return m.reply(`Example: ${usedPrefix + command} ${args[0]} |bocil
 
-*List:*
-• bocil
-• cecan
-• ghea
-• hijab
-• rika
-• santuy
-• ukhty
-`)
-
-let res = await fetch(`https://api.akuari.my.id/asupan/${one}`)
-let v = await res.json()
-let caption = `*Result:*
-`
-await conn.sendButton(m.chat, caption, wm, v.respon, [
-                ['Get', `${usedPrefix}get ${v.respon}`]
-            ], m)
-}
 if (args[0] == 'rimage') {
 if (!one) return m.reply(`Example: ${usedPrefix + command} ${args[0]} |darkmeme17
 
@@ -270,23 +248,9 @@ let caption = `*birthday:* ${x.birthday}
 await conn.sendButton(m.chat, caption, wm, x.image, [
                 ['Next', `${usedPrefix}${command} ${text}`]
             ], m)
+    }
 }
-
-if (command == 'ytreels') {
-if (!args[0]) throw `Contoh penggunaan ${usedPrefix}${command} https://youtube.com/shorts/68dfq9ine1k`
-
-let f = await fetch(`https://api.lolhuman.xyz/api/ytreels?apikey=327a6596e4c4baa20c756132&url=${text}`)
-let x = await f.json()
-let caption = `*title:* ${x.result.title}
-*size:* ${x.result.size}
-`
-await conn.sendButton(m.chat, caption, wm, x.resukt.thumbnail, [
-                ['Get', `${usedPrefix}get ${x.result.link}`]
-            ], m)
-}
-
-}
-handler.command = handler.help = ['akuari', 'brainfuck', 'heliximage', 'htmlesc', 'imglink', 'shortenlink', 'impact', 'ytreels']
+handler.command = handler.help = ['akuari', 'brainfuck', 'heliximage', 'htmlesc', 'imglink', 'shortenlink', 'impact']
 handler.tags = ['info']
 
 export default handler

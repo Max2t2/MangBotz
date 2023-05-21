@@ -40,16 +40,7 @@ await conn.sendButton(m.chat, caption, wm, null, [
             ], m)
 }
 
-if (command == 'emojimix3') {
-if (!args[0]) throw `Ex: ${usedPrefix+command} ${decodeURI('%F0%9F%92%80')}`
-let anu = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(args[0])}`)
-for (let res of anu.results) {
-let stiker = await sticker(false, res.url, global.packname, global.author)
-conn.sendFile(m.chat, stiker, 'sticker.webp', '', m)
-}
-}
-
-if (command == 'emojimix4') {
+if (command == 'emojimix') {
 if (!args[0]) throw `Ex: ${usedPrefix+command} emot + emot`
 let anu = await fetchJson(`https://levanter.up.railway.app/emix?q=${encodeURIComponent(args[0])}`)
 let stiker = await sticker(false, anu.result, global.packname, global.author)
@@ -73,25 +64,6 @@ await conn.sendButton(m.chat, caption, wm, img, [
             ], m)
 }
 
-if (command == 'jamdunia') {
-if (!text) throw `Contoh penggunaan ${usedPrefix}${command} id`
-let res = await fetch(`https://levanter.up.railway.app/time?code=${text}`)
-let xx = await res.json()
-let v = xx.result
-  let teks = v.map(v => {
-  `
-*Result:*\n
-*time:* ${v.time}
-*name:* ${v.name}
-*timeZone:* ${v.timeZone}
-      `.trim()
-  }).filter(v => v).join('\n\n▣═━–〈 *SEARCH* 〉–━═▣\n\n')
-  //m.reply(teks)
-  await conn.sendButton(m.chat, teks, wm, null, [
-                ['Menu!', `${usedPrefix}menu`]
-            ], m)
-}
-
 if (command == 'mvsearch') {
 let f = await fetch(`https://www.omdbapi.com/?apikey=742b2d09&t=${text}&plot=full`)
 let x = await f.json()
@@ -109,23 +81,7 @@ let caption = `*Title:* ${x.Title}
 *Country:* ${x.Country}
 *Awards:* ${x.Awards}
 `
-await conn.sendButton(m.chat, caption, wm, x.Poster, [
-                ['Next', `${usedPrefix}mvsearch2 ${x.Title}`]
-            ], m)
-}
-
-if (command == 'mvsearch2') {
-let f = await fetch(`https://www.omdbapi.com/?apikey=742b2d09&t=${text}&plot=full`)
-let x = await f.json()
-let caption = `*Title:* ${x.results[0].original_title}
-*overview:* ${x.results[0].overview}
-*popularity:* ${x.results[0].popularity}
-*vote:* ${x.results[0].vote_average}
-*rilis:* ${x.results[0].release_date}
-`
-await conn.sendButton(m.chat, caption, wm, 'https://image.tmdb.org/t/p/w500/' + x.poster_path, [
-                ['Next', `${usedPrefix + command}`]
-            ], m)
+await conn.sendMessage(m.chat, caption, wm, x.Poster, m)
 }
 
 if (command == 'lmaker') {
@@ -162,7 +118,7 @@ Usage: .lmaker master|3|Haloo
 if (command == 'quotes') {
 let x = await Quotes()
 let caption = `${x.quotes}
-
+let emojis = 🤖
 🤠 ${x.author}`
 await conn.sendButton(m.chat, caption, packname + ' - ' + author, null, [[emojis + ' Next ' + emojis, usedPrefix + command]], m)
             if (args[0] == 'islami') {
@@ -199,7 +155,7 @@ await conn.sendButton(m.chat, caption, wm, x.data[0].path, [
 }
 
 }
-handler.command = handler.help = ['exchange', 'ipcountry', 'emojimix3', 'emojimix4', 'calc2', 'mvsearch', 'mvsearch2', 'lmaker', 'quotes', 'jtmeme', 'wallhaven', 'jamdunia', 'gqr']
+handler.command = handler.help = ['exchange', 'ipcountry', 'emojimix', 'mvsearch', 'mvsearch2', 'lmaker', 'quotes', 'jtmeme', 'wallhaven', 'gqr']
 handler.tags = ['tools']
 
 export default handler

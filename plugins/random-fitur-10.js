@@ -14,39 +14,6 @@ let res = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${text}
 await conn.sendFile(m.chat, res, 'image.png', "Your Text: \n" + text, m)
 }
 
-if (command == 'catboys') {
-if (args[0] == 'img') {
-let f = await fetch(`https://api.catboys.com/img`)
-let x = await f.json()
-await conn.sendFile(m.chat, x.url, 'image.png', wm, m)
-}
-if (args[0] == '8ball') {
-let f = await fetch(`https://api.catboys.com/8ball`)
-let x = await f.json()
-await conn.sendFile(m.chat, x.url, 'image.png', wm, m)
-}
-if (args[0] == 'dice') {
-let f = await fetch(`https://api.catboys.com/dice`)
-let x = await f.json()
-await conn.sendFile(m.chat, x.url, 'image.png', wm, m)
-}
-if (args[0] == 'catboy') {
-let f = await fetch(`https://api.catboys.com/catboy`)
-let x = await f.json()
-await conn.sendButton(m.chat, `*Pencet untuk mendengar hasil:*`, wm, null, [
-                ['Awkawk', `${usedPrefix}tts ${x.response}`]
-            ], m)
-}
-await conn.sendButton(m.chat, `*Silahkan pilih di bawah:*
-${usedPrefix + command} img
-${usedPrefix + command} 8ball
-${usedPrefix + command} catboy
-`, wm, null, [
-                ['IMG', `${usedPrefix + command} img`],
-                ['8BALL', `${usedPrefix + command} 8ball`]
-            ], m)
-}
-
 if (command == 'nekos') {
 if (!args[0]) throw `Contoh:\n${usedPrefix + command} baka
 
@@ -168,7 +135,7 @@ if (command == 'karakter') {
 	return await conn.sendListM(m.chat, button, row, m)
 }
 }
-handler.command = handler.help = ['createqr', 'catboys', 'nekos', 'avatar', 'randomuser', 'karakter']
+handler.command = handler.help = ['createqr', 'nekos', 'randomuser', 'karakter']
 handler.tags = ['internet']
 export default handler
 
